@@ -1,7 +1,6 @@
 import { useLoaderData } from 'react-router-dom';
 
-import '~css/app.css';
-
+import { Button } from '~components-ui/button';
 import { HTTPResponse } from '~core/http';
 import { IFilmEntity } from '~modules/film';
 
@@ -13,11 +12,11 @@ function DetailPage() {
             <h1>{loader.data.item.name}</h1>
             <div className='card'>
                 {loader.data.item.episodes[0].server_data.map((ep) => (
-                    <button key={ep.filename} type='button'>
+                    <Button key={ep.filename} type='button'>
                         {ep.slug}
-                    </button>
+                    </Button>
                 ))}
-                <p>{loader.data.item.content}</p>
+                <p className='text-muted-foreground'>{loader.data.item.content}</p>
             </div>
         </>
     );

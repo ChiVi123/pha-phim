@@ -1,10 +1,13 @@
 import { Link } from 'react-router-dom';
+import { Button } from '~components-ui/button';
 
 function HomePage() {
     return (
         <>
-            <Link to='/dan-da-dan'>Dan Da Dan</Link>
-            <p className='read-the-docs'> Go detail Dan Da Dan</p>
+            <Button asChild variant='link'>
+                <Link to='/dan-da-dan'>Dan Da Dan</Link>
+            </Button>
+            <p className='text-accent-foreground'>Go detail Dan Da Dan</p>
         </>
     );
 }

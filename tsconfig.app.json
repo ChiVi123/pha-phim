@@ -33,6 +33,7 @@
             "~svg/*": ["./src/shared/assets/svg/*"],
             "~components-ui/*": ["./src/shared/components/ui/*"],
             "~components": ["./src/shared/components/index.tsx"],
+            "~utils": ["./src/shared/utils/index.tsx"],
             "~view/*": ["./src/view/*"]
         }
     },
