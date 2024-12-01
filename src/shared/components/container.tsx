@@ -8,7 +8,9 @@ type ContainerPropsWithoutRef = ComponentPropsWithoutRef<'div'> & { asChild?: bo
 const Container = forwardRef<ContainerRef, ContainerPropsWithoutRef>((props, forwardRef) => {
     const { asChild, className, ...containerProps } = props;
     const Component = asChild ? Slot : 'div';
-    return <Component ref={forwardRef} className={cn('max-w-7xl w-full mx-auto', className)} {...containerProps} />;
+    return (
+        <Component ref={forwardRef} className={cn('max-w-7xl w-full px-4 mx-auto', className)} {...containerProps} />
+    );
 });
 
 export default Container;
