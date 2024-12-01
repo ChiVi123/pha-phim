@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ElementRef, forwardRef, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
     NavigationMenu,
@@ -13,6 +13,7 @@ import { ScrollArea } from '~components-ui/scroll-area';
 import { getAllCategory, ICategoryEntity } from '~modules/category';
 import { getAllCountry, ICountryEntity } from '~modules/country';
 import { cn } from '~utils';
+import { SubMenu } from './components';
 
 type ListObject = { 'the-loai': ICategoryEntity[]; 'quoc-gia': ICountryEntity[] };
 type NavigateMenuItem = { type: 'menu-item'; href: `/${string}`; content: string };
@@ -34,7 +35,7 @@ const navigate: NavigateItem[] = [
 ];
 
 function Header() {
-    const [listMap, setListMap] = useState<ListObject>({ 'quoc-gia': [], 'the-loai': [] });
+    const [listObject, setListObject] = useState<ListObject>({ 'quoc-gia': [], 'the-loai': [] });
 
     useEffect(() => {
         const abortController = new AbortController();
@@ -43,7 +44,7 @@ function Header() {
             const categoryResult = await getAllCategory(abortController.signal);
             const countryResult = await getAllCountry(abortController.signal);
 
-            setListMap((prev) => ({
+            setListObject((prev) => ({
                 ...prev,
                 'the-loai': categoryResult.data.items,
                 'quoc-gia': countryResult.data.items,
@@ -71,7 +72,7 @@ function Header() {
                                     <NavigationMenuTrigger type='button'>{item.content}</NavigationMenuTrigger>
                                     <NavigationMenuContent className='top-full left-0 md:w-max pt-2'>
                                         <ScrollArea className='h-[500px] rounded-sm'>
-                                            <List items={listMap[item.listName]} />
+                                            <SubMenu items={listObject[item.listName]} />
                                         </ScrollArea>
                                     </NavigationMenuContent>
                                 </>
@@ -83,39 +84,5 @@ function Header() {
         </>
     );
 }
-
-const List = <T extends { _id: string; name: string; slug: string }>({ items }: { items: T[] }) => (
-    <ul className='grid grid-cols-2 md:grid-cols-3 gap-3 p-4 bg-popover'>
-        {items.map((data) => (
-            <ListItem key={data._id} to={`/list/${data.slug}`}>
-                {data.name}
-            </ListItem>
-        ))}
-    </ul>
-);
-
-type ListItemRef = ElementRef<typeof Link>;
-type ListItemPropsWithoutRef = ComponentPropsWithoutRef<typeof Link>;
-
-const ListItem = forwardRef<ListItemRef, ListItemPropsWithoutRef>((props, ref) => {
-    const { className, children, ...listItemProps } = props;
-    return (
-        <li>
-            <NavigationMenuLink asChild>
-                <Link
-                    ref={ref}
-                    className={cn(
-                        'block outline-none p-1 font-medium leading-none text-sm no-underline select-none transition-colors hover:text-primary focus:text-primary space-y-1',
-                        className
-                    )}
-                    {...listItemProps}
-                >
-                    {children}
-                </Link>
-            </NavigationMenuLink>
-        </li>
-    );
-});
-ListItem.displayName = 'ListItem';
 
 export default Header;
