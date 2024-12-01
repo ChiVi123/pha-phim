@@ -1,4 +1,4 @@
-import { Search } from 'lucide-react';
+import { Search as SearchIcon } from 'lucide-react';
 import { FormEventHandler, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '~components-ui/button';
@@ -16,7 +16,8 @@ import { ScrollArea } from '~components-ui/scroll-area';
 import { getAllCategory, ICategoryEntity } from '~modules/category';
 import { getAllCountry, ICountryEntity } from '~modules/country';
 import { cn } from '~utils';
-import { SubMenu } from './components';
+
+import SubMenu from './sub-menu';
 
 type ListObject = { 'the-loai': ICategoryEntity[]; 'quoc-gia': ICountryEntity[] };
 type NavigateMenuItem = { type: 'menu-item'; href: `/${string}`; content: string };
@@ -37,7 +38,7 @@ const navigate: NavigateItem[] = [
     { type: 'submenu-item', href: '/list/quoc-gia', content: 'Quốc gia', listName: 'quoc-gia' },
 ];
 
-function Header() {
+function TopBar() {
     const [listObject, setListObject] = useState<ListObject>({ 'quoc-gia': [], 'the-loai': [] });
     const [isShowSearchbar, setIsShowSearchbar] = useState<boolean>(false);
     const searchbarRef = useRef<HTMLFormElement | null>(null);
@@ -64,8 +65,6 @@ function Header() {
             if (!e.target) return;
 
             if (!searchbarRef.current?.contains(e.target as Node)) {
-                console.log('close searchbar');
-
                 setIsShowSearchbar(false);
             }
         };
@@ -143,11 +142,11 @@ function Header() {
                     })}
                     onClick={handleOpenSearchbar}
                 >
-                    <Search />
+                    <SearchIcon />
                 </Button>
             </form>
         </div>
     );
 }
 
-export default Header;
+export default TopBar;

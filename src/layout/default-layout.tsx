@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Container } from '~components';
 import { cn } from '~utils';
+import { TopBar } from './components';
 import Footer from './footer';
-import Header from './header';
 
 function DefaultLayout() {
     const [isHasBg, setIsHasBg] = useState<boolean>(false);
@@ -33,7 +33,7 @@ function DefaultLayout() {
                         'bg-background': isHasBg,
                     })}
                 >
-                    <Header />
+                    <TopBar />
                 </header>
             </Container>
 
