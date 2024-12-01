@@ -1,5 +1,8 @@
-import { useEffect, useState } from 'react';
+import { Search } from 'lucide-react';
+import { FormEventHandler, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Button } from '~components-ui/button';
+import { Input } from '~components-ui/input';
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -36,6 +39,8 @@ const navigate: NavigateItem[] = [
 
 function Header() {
     const [listObject, setListObject] = useState<ListObject>({ 'quoc-gia': [], 'the-loai': [] });
+    const [isShowSearchbar, setIsShowSearchbar] = useState<boolean>(false);
+    const searchbarRef = useRef<HTMLFormElement | null>(null);
 
     useEffect(() => {
         const abortController = new AbortController();
@@ -54,8 +59,37 @@ function Header() {
         return () => abortController.abort();
     }, []);
 
+    useEffect(() => {
+        const handleCloseSearchbar = (e: MouseEvent) => {
+            if (!e.target) return;
+
+            if (!searchbarRef.current?.contains(e.target as Node)) {
+                console.log('close searchbar');
+
+                setIsShowSearchbar(false);
+            }
+        };
+
+        window.addEventListener('click', handleCloseSearchbar);
+
+        return () => {
+            console.log('remove event');
+            window.removeEventListener('click', handleCloseSearchbar);
+        };
+    }, []);
+
+    const handleOpenSearchbar = () => {
+        if (!isShowSearchbar) setIsShowSearchbar(true);
+    };
+    const handleSubmit: FormEventHandler = (e) => {
+        e.preventDefault();
+        // when isShowSearchbar (false to true), event submit is triggered
+        // input value is falsy should not fetch
+        console.log('submit', isShowSearchbar);
+    };
+
     return (
-        <>
+        <div className='flex items-center justify-between'>
             <NavigationMenu>
                 <NavigationMenuList>
                     {navigate.map((item) => (
@@ -81,7 +115,38 @@ function Header() {
                     ))}
                 </NavigationMenuList>
             </NavigationMenu>
-        </>
+
+            <form
+                ref={searchbarRef}
+                className='flex items-center border border-border rounded-sm overflow-hidden'
+                onSubmit={handleSubmit}
+            >
+                <Input
+                    name='searchTerm'
+                    placeholder='Tìm kiếm...'
+                    className={cn(
+                        'w-64 border-none rounded-none focus-visible:ring-0 focus-visible:ring-offset-0 transition-[width] duration-800',
+                        {
+                            'w-0 px-0': !isShowSearchbar,
+                        }
+                    )}
+                />
+
+                <Button
+                    type={isShowSearchbar ? 'submit' : 'button'}
+                    variant='ghost'
+                    size='icon'
+                    title='Tìm kiếm'
+                    className={cn({
+                        'rounded-none': isShowSearchbar,
+                        'hover:bg-transparent hover:text-muted-foreground': !isShowSearchbar,
+                    })}
+                    onClick={handleOpenSearchbar}
+                >
+                    <Search />
+                </Button>
+            </form>
+        </div>
     );
 }
 
