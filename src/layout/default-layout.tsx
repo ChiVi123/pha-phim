@@ -27,15 +27,15 @@ function DefaultLayout() {
 
     return (
         <>
-            <Container asChild>
-                <header
-                    className={cn('fixed top-0 left-0 transition-[background-color] duration-500', {
-                        'bg-background': isHasBg,
-                    })}
-                >
+            <header
+                className={cn('fixed top-0 left-0 w-full h-[50px] transition-[background-color] duration-500', {
+                    'bg-background': isHasBg,
+                })}
+            >
+                <Container>
                     <TopBar />
-                </header>
-            </Container>
+                </Container>
+            </header>
 
             <main className='min-h-[800px] bg-muted'>
                 <Outlet />

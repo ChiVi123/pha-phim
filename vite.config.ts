@@ -13,6 +13,7 @@ export default defineConfig({
             '~modules': path.resolve(__dirname, './src/modules'),
             '~routers': path.resolve(__dirname, './src/routers'),
             '~css': path.resolve(__dirname, './src/shared/assets/css'),
+            '~icon': path.resolve(__dirname, './src/shared/assets/icon'),
             '~svg': path.resolve(__dirname, './src/shared/assets/svg'),
             '~components-ui': path.resolve(__dirname, './src/shared/components/ui'),
             '~components': path.resolve(__dirname, './src/shared/components'),
