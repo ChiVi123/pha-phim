@@ -30,10 +30,11 @@
             "~modules/*": ["./src/modules/*"],
             "~routers": ["./src/routers/index.tsx"],
             "~css/*": ["./src/shared/assets/css/*"],
+            "~icon": ["./src/shared/assets/icon/index.tsx"],
             "~svg/*": ["./src/shared/assets/svg/*"],
             "~components-ui/*": ["./src/shared/components/ui/*"],
             "~components": ["./src/shared/components/index.tsx"],
-            "~utils": ["./src/shared/utils/index.tsx"],
+            "~utils": ["./src/shared/utils/index.ts"],
             "~view/*": ["./src/view/*"]
         }
     },

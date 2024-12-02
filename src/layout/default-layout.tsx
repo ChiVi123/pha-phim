@@ -1,14 +1,13 @@
 import { Outlet } from 'react-router-dom';
-import { Footer, Header } from './components';
+import Footer from './footer';
+import Header from './header';
 
 function DefaultLayout() {
     return (
         <>
-            <header>
-                <Header />
-            </header>
+            <Header />
 
-            <main>
+            <main className='min-h-[800px] bg-muted'>
                 <Outlet />
             </main>
 
