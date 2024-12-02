@@ -12,5 +12,6 @@ const Container = forwardRef<ContainerRef, ContainerPropsWithoutRef>((props, for
         <Component ref={forwardRef} className={cn('max-w-7xl w-full px-4 mx-auto', className)} {...containerProps} />
     );
 });
+Container.displayName = 'Container';
 
 export default Container;
