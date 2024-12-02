@@ -11,9 +11,7 @@ function DefaultLayout() {
                 <Outlet />
             </main>
 
-            <footer>
-                <Footer />
-            </footer>
+            <Footer />
         </>
     );
 }
