@@ -26,8 +26,6 @@ function HomePage() {
             }
             const result = await Promise.all(promise);
             const obj: FilmTypeObject = result.reduce((prev, current) => {
-                console.log(current);
-
                 prev[current.data.type_list] = {
                     items: current.data.items,
                     titlePage: current.data.titlePage,
@@ -76,7 +74,7 @@ function HomePage() {
             <div className='px-2 sm:px-4 my-12 space-y-16'>
                 {filmTypeObject &&
                     Object.values(filmTypeObject).map((type) => (
-                        <div>
+                        <div key={type.type_list}>
                             <div className='flex items-center justify-between pr-4 mb-4 bg-card rounded-3xl overflow-hidden'>
                                 <h2 className='pr-2 pl-4 py-2 bg-primary text-xl font-medium text-primary-foreground'>
                                     {type.titlePage}
