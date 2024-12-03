@@ -1,17 +1,17 @@
 import { HTTPResponse } from '~core/http';
-import { IBreadcrumbEntity } from '~modules/breadcrumb';
+import { BreadcrumbEntity } from '~modules/breadcrumb';
 import { ICategoryEmbed } from '~modules/category';
 import { ICountryEmbed } from '~modules/country';
 import { ISEOEntity } from '~modules/seo';
 
-type Episode = {
+export type Episode = {
     server_name: string;
     server_data: { name: string; slug: string; filename: string; link_embed: string; link_u3m8: string }[];
 };
 
 export interface IFilmEntity {
     seoOnPage: ISEOEntity;
-    breadCrumb: IBreadcrumbEntity;
+    breadCrumb: BreadcrumbEntity[];
     params: Record<string, string>;
     item: {
         created: {
@@ -47,6 +47,13 @@ export interface IFilmEntity {
         category: ICategoryEmbed[];
         country: ICountryEmbed[];
         episodes: Episode[];
+        tmdb: {
+            type: string;
+            id: string;
+            season: number;
+            vote_average: number;
+            vote_count: number;
+        };
     };
 }
 export interface IFilmItem {
