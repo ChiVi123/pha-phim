@@ -79,12 +79,12 @@ function Header() {
 
     return (
         <header
-            className={cn('fixed top-0 left-0 w-full h-[50px] transition-[background-color] duration-500', {
+            className={cn('fixed top-0 left-0 w-full h-[50px] transition-[background-color] duration-500 z-10', {
                 'bg-background': isHasBg,
             })}
         >
             <Container>
-                <div className='flex items-center justify-between h-full py-1'>
+                <div className='flex items-center justify-between h-full px-4 py-1'>
                     <div className='flex items-center gap-4'>
                         <SideDrawer items={navigate} />
 
