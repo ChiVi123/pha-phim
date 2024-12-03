@@ -1,11 +1,4 @@
-import {
-    Globe as GlobeIcon,
-    House as HouseIcon,
-    LayoutList as LayoutListIcon,
-    Popcorn as PopcornIcon,
-    Tv as TvIcon,
-    TvMinimalPlay as TvMinimalPlayIcon,
-} from 'lucide-react';
+import { GlobeIcon, HouseIcon, LayoutListIcon, PopcornIcon, TvIcon, TvMinimalPlayIcon } from 'lucide-react';
 import { ReactNode, useEffect, useState } from 'react';
 import { Container, TextLogo } from '~components';
 import { getAllCategory, ICategoryEntity } from '~modules/category';

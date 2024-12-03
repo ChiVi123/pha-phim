@@ -49,4 +49,42 @@ export interface IFilmEntity {
         episodes: Episode[];
     };
 }
+export interface IFilmItem {
+    created: {
+        time: string;
+    };
+    modified: {
+        time: string;
+    };
+    _id: string;
+    category: ICategoryEmbed[];
+    chieurap: boolean;
+    country: ICountryEmbed[];
+    episode_current: string;
+    lang: string;
+    name: string;
+    origin_name: string;
+    poster_url: string;
+    quality: string;
+    slug: string;
+    sub_docquyen: boolean;
+    thumb_url: string;
+    time: string;
+    type: string;
+    view: number;
+    year: number;
+    tmdb: {
+        type: string;
+        id: string;
+        season: number;
+        vote_average: number;
+        vote_count: number;
+    };
+}
 export type FilmResponse = HTTPResponse<IFilmEntity>;
+export type ListFilmResponse = HTTPResponse<{
+    items: IFilmItem[];
+    titlePage: string;
+    type_list: FilmType;
+    APP_DOMAIN_CDN_IMAGE: string;
+}>;

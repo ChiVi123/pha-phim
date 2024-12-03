@@ -8,7 +8,7 @@ function DefaultLayout() {
         <>
             <Header />
 
-            <main className='min-h-[800px]'>
+            <main className='min-h-screen'>
                 <Container>
                     <Outlet />
                 </Container>
