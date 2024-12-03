@@ -2,7 +2,7 @@ import { Container, TextLogo } from '~components';
 
 function Footer() {
     return (
-        <footer className='py-8 border-t border-border'>
+        <footer className='px-4 py-8 border-t border-border'>
             <Container>
                 <div className='flex flex-col md:flex-row items-center gap-8'>
                     <div className='flex-1'>
@@ -17,7 +17,9 @@ function Footer() {
                 </div>
 
                 <div className='flex items-center justify-between pt-2 mt-4 border-t border-border'>
-                    <span className='text-lg font-bold'>&copy; PhaPhim.</span>
+                    <div className='text-sm text-muted-foreground'>
+                        &copy; 2024 <span className='font-medium'>PhaPhim</span>.
+                    </div>
 
                     <div className='flex items-center gap-4 text-2xl leading-none'>
                         <a href='https://github.com/ChiVi123/pha-phim' target='_blank' rel='noopener'>
