@@ -10,6 +10,7 @@
         "preview": "vite preview"
     },
     "dependencies": {
+        "@radix-ui/react-accordion": "^1.2.1",
         "@radix-ui/react-dialog": "^1.1.2",
         "@radix-ui/react-navigation-menu": "^1.2.1",
         "@radix-ui/react-scroll-area": "^1.2.1",
@@ -20,6 +21,7 @@
         "clsx": "^2.1.1",
         "embla-carousel-autoplay": "^8.5.1",
         "embla-carousel-react": "^8.5.1",
+        "hls.js": "^1.5.17",
         "lucide-react": "^0.462.0",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",

@@ -6,7 +6,7 @@ import { ISEOEntity } from '~modules/seo';
 
 export type Episode = {
     server_name: string;
-    server_data: { name: string; slug: string; filename: string; link_embed: string; link_u3m8: string }[];
+    server_data: { name: string; slug: string; filename: string; link_embed: string; link_m3u8: string }[];
 };
 
 export interface IFilmEntity {
