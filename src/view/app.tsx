@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
+import { Provider } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';
+import store from '~core/store';
 import browserRouter from '~routers';
 
 function App() {
@@ -7,7 +9,11 @@ function App() {
         document.documentElement.classList.add('dark');
     }, []);
 
-    return <RouterProvider router={browserRouter} />;
+    return (
+        <Provider store={store}>
+            <RouterProvider router={browserRouter} />
+        </Provider>
+    );
 }
 
 export default App;

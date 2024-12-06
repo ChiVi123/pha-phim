@@ -17,3 +17,5 @@
 [] header: bg transparent only home page
 
 [] favicon: change color
+
+[] drawer side: display submenu

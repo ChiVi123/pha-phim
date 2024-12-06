@@ -90,8 +90,9 @@ export interface IFilmItem {
 }
 export type FilmResponse = HTTPResponse<IFilmEntity>;
 export type ListFilmResponse = HTTPResponse<{
+    APP_DOMAIN_CDN_IMAGE: string;
+    breadCrumb: BreadcrumbEntity[];
     items: IFilmItem[];
     titlePage: string;
     type_list: FilmType;
-    APP_DOMAIN_CDN_IMAGE: string;
 }>;

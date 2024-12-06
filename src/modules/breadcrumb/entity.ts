@@ -4,11 +4,13 @@ export interface IBreadcrumbEntity {
     position: number;
 }
 type BreadCrumbLink = {
+    type: 'link';
     name: string;
     slug: string;
     position: number;
 };
 type BreadCrumbCurrent = {
+    type: 'current';
     name: string;
     isCurrent: true;
     position: number;

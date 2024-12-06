@@ -13,3 +13,7 @@ export const searchFilmByType = async (
     const res = await http.get<ListFilmResponse>(`danh-sach/${type}`, { signal, params });
     return res.data;
 };
+export const getListFilm = async (signal: AbortSignal, pathname: string, params?: Record<string, unknown>) => {
+    const res = await http.get<ListFilmResponse>(pathname, { params, signal });
+    return res.data;
+};

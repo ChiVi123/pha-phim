@@ -1,8 +1,10 @@
 import { GlobeIcon, HouseIcon, LayoutListIcon, PopcornIcon, TvIcon, TvMinimalPlayIcon } from 'lucide-react';
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Container, TextLogo } from '~components';
-import { getAllCategory, ICategoryEntity } from '~modules/category';
-import { getAllCountry, ICountryEntity } from '~modules/country';
+import { useAppDispatch } from '~core/store';
+import { categorySelector, fetchAllCategory, ICategoryEntity } from '~modules/category';
+import { countrySelector, fetchAllCountry, ICountryEntity } from '~modules/country';
 import { cn } from '~utils';
 import { Navigation, Searchbar, SideDrawer } from './components';
 
@@ -18,40 +20,40 @@ type NavigateSubmenuItem = {
 type NavigateItem = NavigateMenuItem | NavigateSubmenuItem;
 const navigate: NavigateItem[] = [
     { type: 'menu-item', href: '/', content: 'Trang chủ', icon: <HouseIcon /> },
-    { type: 'menu-item', href: '/list/phim-le', content: 'Phim lẻ', icon: <PopcornIcon /> },
-    { type: 'menu-item', href: '/list/phim-bo', content: 'Phim bộ', icon: <TvMinimalPlayIcon /> },
-    { type: 'menu-item', href: '/list/tv-shows', content: 'TV Shows', icon: <TvMinimalPlayIcon /> },
-    { type: 'menu-item', href: '/list/hoat-hinh', content: 'Hoạt hình', icon: <TvIcon /> },
+    { type: 'menu-item', href: '/danh-sach/phim-le', content: 'Phim lẻ', icon: <PopcornIcon /> },
+    { type: 'menu-item', href: '/danh-sach/phim-bo', content: 'Phim bộ', icon: <TvMinimalPlayIcon /> },
+    { type: 'menu-item', href: '/danh-sach/tv-shows', content: 'TV Shows', icon: <TvMinimalPlayIcon /> },
+    { type: 'menu-item', href: '/danh-sach/hoat-hinh', content: 'Hoạt hình', icon: <TvIcon /> },
     {
         type: 'submenu-item',
-        href: '/list/the-loai',
+        href: '/the-loai',
         content: 'Thể loại',
         listName: 'the-loai',
         icon: <LayoutListIcon />,
     },
-    { type: 'submenu-item', href: '/list/quoc-gia', content: 'Quốc gia', listName: 'quoc-gia', icon: <GlobeIcon /> },
+    { type: 'submenu-item', href: '/quoc-gia', content: 'Quốc gia', listName: 'quoc-gia', icon: <GlobeIcon /> },
 ];
 
 function Header() {
-    const [listObject, setListObject] = useState<ListObject>({ 'quoc-gia': [], 'the-loai': [] });
     const [isHasBg, setIsHasBg] = useState<boolean>(false);
+    const categories = useSelector(categorySelector.data);
+    const countries = useSelector(countrySelector.data);
+    const dispatch = useAppDispatch();
+
+    const listObject = useMemo<ListObject>(
+        () => ({ 'quoc-gia': countries, 'the-loai': categories }),
+        [categories, countries]
+    );
 
     useEffect(() => {
-        const abortController = new AbortController();
+        const categoryPromise = dispatch(fetchAllCategory());
+        const countryPromise = dispatch(fetchAllCountry());
 
-        (async function () {
-            const categoryResult = await getAllCategory(abortController.signal);
-            const countryResult = await getAllCountry(abortController.signal);
-
-            setListObject((prev) => ({
-                ...prev,
-                'the-loai': categoryResult.data.items,
-                'quoc-gia': countryResult.data.items,
-            }));
-        })();
-
-        return () => abortController.abort();
-    }, []);
+        return () => {
+            categoryPromise.abort();
+            countryPromise.abort();
+        };
+    }, [dispatch]);
 
     useEffect(() => {
         const handleScroll = () => {

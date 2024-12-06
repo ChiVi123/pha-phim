@@ -1,3 +1,4 @@
+export { default as Breadcrumb } from './breadcrumb';
 export { default as CardFilm } from './card-film';
 export { default as Container } from './container';
 export { default as HydrateFallback } from './hydrate-fallback';

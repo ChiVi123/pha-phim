@@ -60,7 +60,7 @@ function Navigation({ items, listObject }: IProps) {
                                     <ScrollArea className='h-[500px] rounded-sm'>
                                         <ul className='grid grid-cols-2 md:grid-cols-3 gap-3 p-4 bg-popover'>
                                             {listObject[item.listName].map((data) => (
-                                                <NavItemLink key={data._id} to={`/list/${data.slug}`}>
+                                                <NavItemLink key={data._id} to={`${item.href}/${data.slug}`}>
                                                     {data.name}
                                                 </NavItemLink>
                                             ))}
