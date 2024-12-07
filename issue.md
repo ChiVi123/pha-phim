@@ -19,3 +19,9 @@
 [] favicon: change color
 
 [] drawer side: display submenu
+
+# 07/12/2024
+
+[] watch now: can not watch episode one with an anime one piece
+
+[] drawer side: click navigate not close

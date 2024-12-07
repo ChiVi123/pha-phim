@@ -156,11 +156,15 @@ function ListPage() {
     };
 
     return (
-        <div className='px-4 py-6 mt-[50px]'>
+        <div className='px-2 sm:px-4 py-6 mt-[50px]'>
             <Breadcrumb breadcrumb={listResponse?.data.breadCrumb ?? []} />
 
-            <form id='form-list' className='flex items-end gap-4 p-2 mt-8 bg-card rounded' onSubmit={handleSubmit}>
-                <div className='flex-1 flex flex-col gap-2'>
+            <form
+                id='form-list'
+                className='flex flex-wrap items-end gap-4 p-2 mt-8 bg-card rounded'
+                onSubmit={handleSubmit}
+            >
+                <div className='flex-grow flex flex-col gap-2'>
                     <Label htmlFor=':list:filter-type-film' className='pl-1'>
                         Loại phim:
                     </Label>
@@ -182,7 +186,7 @@ function ListPage() {
                     </Select>
                 </div>
 
-                <div className='flex-1 flex flex-col gap-2'>
+                <div className='flex-grow flex flex-col gap-2'>
                     <Label htmlFor=':list:filter-category-film' className='pl-1'>
                         Thể loại:
                     </Label>
@@ -205,7 +209,7 @@ function ListPage() {
                     </Select>
                 </div>
 
-                <div className='flex-1 flex flex-col gap-2'>
+                <div className='flex-grow flex flex-col gap-2'>
                     <Label htmlFor=':list:filter-country-film' className='pl-1'>
                         Quốc gia:
                     </Label>
@@ -228,7 +232,7 @@ function ListPage() {
                     </Select>
                 </div>
 
-                <div className='flex-1 flex flex-col gap-2'>
+                <div className='flex-grow flex flex-col gap-2'>
                     <Label htmlFor=':list:filter-year-film' className='pl-1'>
                         Năm:
                     </Label>
@@ -254,7 +258,7 @@ function ListPage() {
                     </Select>
                 </div>
 
-                <div className='flex-1 flex flex-col gap-2'>
+                <div className='flex-grow flex flex-col gap-2'>
                     <Label htmlFor=':list:sort-film' className='pl-1'>
                         Sắp xếp:
                     </Label>
@@ -282,7 +286,7 @@ function ListPage() {
                 {listResponse?.data.titlePage}
             </h2>
 
-            <div className='mt-6 grid grid-cols-4 gap-2'>
+            <div className='mt-6 grid grid-cols-2 md:grid-cols-4 gap-2'>
                 {listResponse &&
                     listResponse.data.items.map((item) => (
                         <CardFilm key={item._id} item={item} domainCDNImage={listResponse.data.APP_DOMAIN_CDN_IMAGE} />
@@ -316,11 +320,11 @@ function PaginationWrapper({ searchParams, pagination }: IPaginationWrapper) {
 
     return (
         <Pagination>
-            <PaginationContent>
+            <PaginationContent className='gap-2 sm:gap-1 flex-wrap'>
                 <PaginationItem>
                     <PaginationPrevious
                         to={{ search: previousParams.toString() }}
-                        className={cn({
+                        className={cn('w-8 h-8 sm:w-10 sm:h-10', {
                             'opacity-50 pointer-events-none': pagination.currentPage === 1,
                         })}
                     />
@@ -334,11 +338,12 @@ function PaginationWrapper({ searchParams, pagination }: IPaginationWrapper) {
                     return (
                         <PaginationItem key={index + '-' + page}>
                             {page === 'ellipsis' ? (
-                                <PaginationEllipsis />
+                                <PaginationEllipsis className='w-8 h-8 sm:w-10 sm:h-10' />
                             ) : (
                                 <PaginationLink
                                     to={{ search: newParams.toString() }}
                                     isActive={page === pagination.currentPage}
+                                    className='w-8 h-8 sm:w-10 sm:h-10'
                                 >
                                     {page}
                                 </PaginationLink>
@@ -350,7 +355,7 @@ function PaginationWrapper({ searchParams, pagination }: IPaginationWrapper) {
                 <PaginationItem>
                     <PaginationNext
                         to={{ search: nextParams.toString() }}
-                        className={cn({
+                        className={cn('w-8 h-8 sm:w-10 sm:h-10', {
                             'opacity-50 pointer-events-none': pagination.currentPage > pageCount,
                         })}
                     />
