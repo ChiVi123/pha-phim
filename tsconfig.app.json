@@ -34,6 +34,7 @@
             "~svg/*": ["./src/shared/assets/svg/*"],
             "~components-ui/*": ["./src/shared/components/ui/*"],
             "~components": ["./src/shared/components/index.tsx"],
+            "~hook": ["./src/shared/hook/index.ts"],
             "~utils": ["./src/shared/utils/index.ts"],
             "~view/*": ["./src/view/*"]
         }

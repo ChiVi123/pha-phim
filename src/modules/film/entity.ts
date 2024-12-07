@@ -95,4 +95,15 @@ export type ListFilmResponse = HTTPResponse<{
     items: IFilmItem[];
     titlePage: string;
     type_list: FilmType;
+    params: {
+        filterCategory: string[];
+        filterCountry: string[];
+        filterType: string;
+        filterYear: string;
+        pagination: { totalItems: number; totalItemsPerPage: number; currentPage: number; pageRanges: number };
+        slug: string;
+        sortField: string;
+        sortType: string;
+        type_slug: string;
+    };
 }>;
