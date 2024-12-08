@@ -17,3 +17,10 @@ export const getListFilm = async (signal: AbortSignal, pathname: string, params?
     const res = await http.get<ListFilmResponse>(pathname, { params, signal });
     return res.data;
 };
+export const searchFilm = async (
+    signal: AbortSignal,
+    params?: Record<string, unknown> & { keyword: string | null | undefined }
+) => {
+    const res = await http.get<ListFilmResponse>(`/tim-kiem`, { signal, params });
+    return res.data;
+};
