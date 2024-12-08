@@ -1,24 +1,13 @@
 import { FormEventHandler, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { createSearchParams, useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import { Breadcrumb, CardFilm } from '~components';
+import { Breadcrumb, CardFilm, Pagination } from '~components';
 import { Button } from '~components-ui/button';
 import { Label } from '~components-ui/label';
-import {
-    Pagination,
-    PaginationContent,
-    PaginationEllipsis,
-    PaginationItem,
-    PaginationLink,
-    PaginationNext,
-    PaginationPrevious,
-} from '~components-ui/pagination';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~components-ui/select';
-import { usePagination } from '~hook';
 import { categorySelector } from '~modules/category';
 import { countrySelector } from '~modules/country';
 import { getListFilm, ListFilmResponse } from '~modules/film';
-import { cn } from '~utils';
 
 type ParamsObject = {
     type: string;
@@ -295,7 +284,7 @@ function ListPage() {
 
             <div className='mt-8'>
                 {listResponse && (
-                    <PaginationWrapper searchParams={searchParams} pagination={listResponse.data.params.pagination} />
+                    <Pagination searchParams={searchParams} pagination={listResponse.data.params.pagination} />
                 )}
             </div>
         </div>
@@ -303,64 +292,3 @@ function ListPage() {
 }
 
 export default ListPage;
-
-interface IPaginationWrapper {
-    searchParams: URLSearchParams;
-    pagination: { totalItems: number; totalItemsPerPage: number; currentPage: number; pageRanges: number };
-}
-
-function PaginationWrapper({ searchParams, pagination }: IPaginationWrapper) {
-    const pageCount = Math.round(pagination.totalItems / pagination.totalItemsPerPage);
-    const pages = usePagination({ page: pagination.currentPage, pageCount });
-    const previousParams = new URLSearchParams(searchParams);
-    const nextParams = new URLSearchParams(searchParams);
-
-    previousParams.set('page_number', String(Math.max(pagination.currentPage - 1, 1)));
-    nextParams.set('page_number', String(Math.min(pagination.currentPage + 1, pageCount)));
-
-    return (
-        <Pagination>
-            <PaginationContent className='gap-2 sm:gap-1 flex-wrap'>
-                <PaginationItem>
-                    <PaginationPrevious
-                        to={{ search: previousParams.toString() }}
-                        className={cn('w-8 h-8 sm:w-10 sm:h-10', {
-                            'opacity-50 pointer-events-none': pagination.currentPage === 1,
-                        })}
-                    />
-                </PaginationItem>
-
-                {pages.map((page, index) => {
-                    const newParams = new URLSearchParams(searchParams);
-                    if (page !== 'ellipsis') {
-                        newParams.set('page_number', page.toString());
-                    }
-                    return (
-                        <PaginationItem key={index + '-' + page}>
-                            {page === 'ellipsis' ? (
-                                <PaginationEllipsis className='w-8 h-8 sm:w-10 sm:h-10' />
-                            ) : (
-                                <PaginationLink
-                                    to={{ search: newParams.toString() }}
-                                    isActive={page === pagination.currentPage}
-                                    className='w-8 h-8 sm:w-10 sm:h-10'
-                                >
-                                    {page}
-                                </PaginationLink>
-                            )}
-                        </PaginationItem>
-                    );
-                })}
-
-                <PaginationItem>
-                    <PaginationNext
-                        to={{ search: nextParams.toString() }}
-                        className={cn('w-8 h-8 sm:w-10 sm:h-10', {
-                            'opacity-50 pointer-events-none': pagination.currentPage > pageCount,
-                        })}
-                    />
-                </PaginationItem>
-            </PaginationContent>
-        </Pagination>
-    );
-}
