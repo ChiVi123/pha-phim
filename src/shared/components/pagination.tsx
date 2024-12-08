@@ -17,7 +17,7 @@ interface IProps extends ComponentProps<'nav'> {
 }
 
 function Pagination({ pagination, searchParams, className, ...props }: IProps) {
-    const pageCount = Math.round(pagination.totalItems / pagination.totalItemsPerPage);
+    const pageCount = Math.ceil(pagination.totalItems / pagination.totalItemsPerPage);
     const pages = usePagination({ page: pagination.currentPage, pageCount });
     const previousParams = new URLSearchParams(searchParams);
     const nextParams = new URLSearchParams(searchParams);
@@ -27,47 +27,49 @@ function Pagination({ pagination, searchParams, className, ...props }: IProps) {
 
     return (
         <PaginationUI className={className} {...props}>
-            <PaginationContent className='gap-2 sm:gap-1 flex-wrap'>
-                <PaginationItem>
-                    <PaginationPrevious
-                        to={{ search: previousParams.toString() }}
-                        className={cn('w-8 h-8 sm:w-10 sm:h-10', {
-                            'opacity-50 pointer-events-none': pagination.currentPage === 1,
-                        })}
-                    />
-                </PaginationItem>
+            {pageCount > 1 && (
+                <PaginationContent className='gap-2 sm:gap-1 flex-wrap'>
+                    <PaginationItem>
+                        <PaginationPrevious
+                            to={{ search: previousParams.toString() }}
+                            className={cn('w-8 h-8 sm:w-10 sm:h-10', {
+                                'opacity-50 pointer-events-none': pagination.currentPage === 1,
+                            })}
+                        />
+                    </PaginationItem>
 
-                {pages.map((page, index) => {
-                    const newParams = new URLSearchParams(searchParams);
-                    if (page !== 'ellipsis') {
-                        newParams.set('page_number', page.toString());
-                    }
-                    return (
-                        <PaginationItem key={index + '-' + page}>
-                            {page === 'ellipsis' ? (
-                                <PaginationEllipsis className='w-8 h-8 sm:w-10 sm:h-10' />
-                            ) : (
-                                <PaginationLink
-                                    to={{ search: newParams.toString() }}
-                                    isActive={page === pagination.currentPage}
-                                    className='w-8 h-8 sm:w-10 sm:h-10'
-                                >
-                                    {page}
-                                </PaginationLink>
-                            )}
-                        </PaginationItem>
-                    );
-                })}
+                    {pages.map((page, index) => {
+                        const newParams = new URLSearchParams(searchParams);
+                        if (page !== 'ellipsis') {
+                            newParams.set('page_number', page.toString());
+                        }
+                        return (
+                            <PaginationItem key={index + '-' + page}>
+                                {page === 'ellipsis' ? (
+                                    <PaginationEllipsis className='w-8 h-8 sm:w-10 sm:h-10' />
+                                ) : (
+                                    <PaginationLink
+                                        to={{ search: newParams.toString() }}
+                                        isActive={page === pagination.currentPage}
+                                        className='w-8 h-8 sm:w-10 sm:h-10'
+                                    >
+                                        {page}
+                                    </PaginationLink>
+                                )}
+                            </PaginationItem>
+                        );
+                    })}
 
-                <PaginationItem>
-                    <PaginationNext
-                        to={{ search: nextParams.toString() }}
-                        className={cn('w-8 h-8 sm:w-10 sm:h-10', {
-                            'opacity-50 pointer-events-none': pagination.currentPage > pageCount,
-                        })}
-                    />
-                </PaginationItem>
-            </PaginationContent>
+                    <PaginationItem>
+                        <PaginationNext
+                            to={{ search: nextParams.toString() }}
+                            className={cn('w-8 h-8 sm:w-10 sm:h-10', {
+                                'opacity-50 pointer-events-none': pagination.currentPage > pageCount,
+                            })}
+                        />
+                    </PaginationItem>
+                </PaginationContent>
+            )}
         </PaginationUI>
     );
 }
