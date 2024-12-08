@@ -7,7 +7,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { IFilmItem, ListFilmResponse, searchFilmByType } from '~modules/film';
 import { CardPoster } from './components';
 
-type FilmTypeObject = Record<FilmType, ListFilmResponse['data']>;
+type FilmTypeObject = Record<FilmType, Omit<ListFilmResponse['data'], 'breadCrumb' | 'params'>>;
 
 const filmTypes: FilmType[] = ['hot', 'phim-le', 'hoat-hinh', 'phim-bo'];
 
@@ -27,10 +27,10 @@ function HomePage() {
             const result = await Promise.all(promise);
             const obj: FilmTypeObject = result.reduce((prev, current) => {
                 prev[current.data.type_list] = {
+                    APP_DOMAIN_CDN_IMAGE: current.data.APP_DOMAIN_CDN_IMAGE,
                     items: current.data.items,
                     titlePage: current.data.titlePage,
                     type_list: current.data.type_list,
-                    APP_DOMAIN_CDN_IMAGE: current.data.APP_DOMAIN_CDN_IMAGE,
                 };
                 return prev;
             }, {} as FilmTypeObject);

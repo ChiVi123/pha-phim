@@ -31,9 +31,9 @@ const Breadcrumb = forwardRef<HTMLElement, BreadcrumbPropsWithoutRef>(({ breadcr
                 <Fragment key={br.name}>
                     <BreadcrumbSeparator />
                     <BreadcrumbItem>
-                        {br.type === 'link' ? (
+                        {'slug' in br ? (
                             <BreadcrumbLink asChild>
-                                <Link to={`/category${br.slug}`}>{br.name}</Link>
+                                <Link to={br.slug}>{br.name}</Link>
                             </BreadcrumbLink>
                         ) : (
                             <BreadcrumbPage>{br.name}</BreadcrumbPage>

@@ -1,16 +1,7 @@
-import { HomeIcon, PlayCircleIcon, StarIcon, TvMinimalPlayIcon } from 'lucide-react';
+import { PlayCircleIcon, StarIcon, TvMinimalPlayIcon } from 'lucide-react';
 import { useEffect } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
-import { Fragment } from 'react/jsx-runtime';
-import { SectionEpisode } from '~components';
-import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbList,
-    BreadcrumbPage,
-    BreadcrumbSeparator,
-} from '~components-ui/breadcrumb';
+import { Breadcrumb, SectionEpisode } from '~components';
 import { Button } from '~components-ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '~components-ui/dialog';
 import { HTTPResponse } from '~core/http';
@@ -27,33 +18,7 @@ function DetailPage() {
 
     return (
         <div className='px-4 py-6 mt-[50px]'>
-            <Breadcrumb>
-                <BreadcrumbList>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink asChild>
-                            <Link to='/' className='flex items-center gap-1'>
-                                <HomeIcon />
-                                Trang chủ
-                            </Link>
-                        </BreadcrumbLink>
-                    </BreadcrumbItem>
-
-                    {data.breadCrumb.map((br) => (
-                        <Fragment key={br.name}>
-                            <BreadcrumbSeparator />
-                            <BreadcrumbItem>
-                                {'slug' in br ? (
-                                    <BreadcrumbLink asChild>
-                                        <Link to={`/category${br.slug}`}>{br.name}</Link>
-                                    </BreadcrumbLink>
-                                ) : (
-                                    <BreadcrumbPage>{br.name}</BreadcrumbPage>
-                                )}
-                            </BreadcrumbItem>
-                        </Fragment>
-                    ))}
-                </BreadcrumbList>
-            </Breadcrumb>
+            <Breadcrumb breadcrumb={data.breadCrumb} />
 
             {/* Info */}
             <div className='flex flex-col md:flex-row gap-6 mt-8'>

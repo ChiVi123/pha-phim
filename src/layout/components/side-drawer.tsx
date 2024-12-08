@@ -1,6 +1,6 @@
 import { Slottable } from '@radix-ui/react-slot';
 import { Menu as MenuIcon } from 'lucide-react';
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { TextLogo } from '~components';
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from '~components-ui/drawer';
@@ -31,8 +31,9 @@ interface IProps {
 }
 
 function SideDrawer({ items }: IProps) {
+    const [open, setOpen] = useState<boolean>(false);
     return (
-        <Drawer direction='left'>
+        <Drawer direction='left' open={open} onOpenChange={setOpen}>
             <DrawerTrigger title='Menu' className='lg:hidden'>
                 <MenuIcon />
             </DrawerTrigger>
@@ -53,6 +54,7 @@ function SideDrawer({ items }: IProps) {
                                         navigationMenuTriggerStyle(),
                                         'justify-start gap-2 w-full h-auto py-4 bg-transparent'
                                     )}
+                                    onClick={() => setOpen(false)}
                                 >
                                     {item.icon}
                                     <Slottable>

@@ -1,18 +1,9 @@
 import Hls from 'hls.js';
-import { HomeIcon, PlayIcon } from 'lucide-react';
+import { PlayIcon } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Link, useLoaderData, useSearchParams } from 'react-router-dom';
-import { Fragment } from 'react/jsx-runtime';
-import { SectionEpisode } from '~components';
+import { useLoaderData, useSearchParams } from 'react-router-dom';
+import { Breadcrumb, SectionEpisode } from '~components';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '~components-ui/accordion';
-import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbList,
-    BreadcrumbPage,
-    BreadcrumbSeparator,
-} from '~components-ui/breadcrumb';
 import { Button } from '~components-ui/button';
 import envConfig from '~config/env';
 import { HTTPResponse } from '~core/http';
@@ -55,33 +46,7 @@ function WatchPage() {
 
     return (
         <div className='px-4 py-6 mt-[50px]'>
-            <Breadcrumb>
-                <BreadcrumbList>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink asChild>
-                            <Link to='/' className='flex items-center gap-1'>
-                                <HomeIcon />
-                                Trang chủ
-                            </Link>
-                        </BreadcrumbLink>
-                    </BreadcrumbItem>
-
-                    {data.breadCrumb.map((br) => (
-                        <Fragment key={br.name}>
-                            <BreadcrumbSeparator />
-                            <BreadcrumbItem>
-                                {'slug' in br ? (
-                                    <BreadcrumbLink asChild>
-                                        <Link to={`/category${br.slug}`}>{br.name}</Link>
-                                    </BreadcrumbLink>
-                                ) : (
-                                    <BreadcrumbPage>{br.name}</BreadcrumbPage>
-                                )}
-                            </BreadcrumbItem>
-                        </Fragment>
-                    ))}
-                </BreadcrumbList>
-            </Breadcrumb>
+            <Breadcrumb breadcrumb={data.breadCrumb} />
 
             <div className='relative flex justify-center mt-14 md:h-[calc(100vh-80px)] bg-card rounded-md'>
                 {!isPlay && (

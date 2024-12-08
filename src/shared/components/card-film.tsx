@@ -8,7 +8,7 @@ interface IProps {
 }
 function CardFilm({ item, domainCDNImage }: IProps) {
     return (
-        <Link to={`/${item.slug}`}>
+        <Link to={`/${item.slug}`} title={item.name}>
             <Card className='relative h-full overflow-hidden select-none group'>
                 <CardContent className='h-full p-0'>
                     <div className='h-80 text-center overflow-hidden'>

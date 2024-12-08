@@ -1,6 +1,7 @@
 import { GlobeIcon, HouseIcon, LayoutListIcon, PopcornIcon, TvIcon, TvMinimalPlayIcon } from 'lucide-react';
 import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { Container, TextLogo } from '~components';
 import { useAppDispatch } from '~core/store';
 import { categorySelector, fetchAllCategory, ICategoryEntity } from '~modules/category';
@@ -38,6 +39,7 @@ function Header() {
     const [isHasBg, setIsHasBg] = useState<boolean>(false);
     const categories = useSelector(categorySelector.data);
     const countries = useSelector(countrySelector.data);
+    const { pathname } = useLocation();
     const dispatch = useAppDispatch();
 
     const listObject = useMemo<ListObject>(
@@ -56,26 +58,28 @@ function Header() {
     }, [dispatch]);
 
     useEffect(() => {
-        const handleScroll = () => {
-            if (window.scrollY > 80) {
-                setIsHasBg(true);
-            } else {
-                setIsHasBg(false);
-            }
-        };
+        if (pathname === '/') {
+            const handleScroll = () => {
+                if (window.scrollY > 80) {
+                    setIsHasBg(true);
+                } else {
+                    setIsHasBg(false);
+                }
+            };
 
-        window.addEventListener('scroll', handleScroll);
+            window.addEventListener('scroll', handleScroll);
 
-        return () => {
-            console.log('remove event');
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
+            return () => {
+                console.log('remove event');
+                window.removeEventListener('scroll', handleScroll);
+            };
+        }
+    }, [pathname]);
 
     return (
         <header
             className={cn('fixed top-0 left-0 w-full h-[50px] transition-[background-color] duration-500 z-10', {
-                'bg-background': isHasBg,
+                'bg-background': pathname !== '/' || isHasBg,
             })}
         >
             <Container className='h-full'>
