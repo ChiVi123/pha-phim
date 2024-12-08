@@ -78,9 +78,9 @@ function Header() {
                 'bg-background': isHasBg,
             })}
         >
-            <Container>
-                <div className='flex items-center justify-between h-full px-4 py-1'>
-                    <div className='flex items-center gap-4'>
+            <Container className='h-full'>
+                <div className='relative flex items-center justify-between gap-1 sm:gap-2 h-full px-4 py-1'>
+                    <div className='flex items-center gap-2 sm:gap-4'>
                         <SideDrawer items={navigate} />
 
                         <TextLogo />

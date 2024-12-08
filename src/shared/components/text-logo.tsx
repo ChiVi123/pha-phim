@@ -10,7 +10,7 @@ interface IProps {
 
 function TextLogo({ classes }: IProps) {
     return (
-        <Link to='/' className={cn('text-lg font-bold text-primary whitespace-nowrap select-none', classes?.a)}>
+        <Link to='/' className={cn('sm:text-lg font-bold text-primary whitespace-nowrap select-none', classes?.a)}>
             Ph<span className={cn('text-red-400 animate-pulse', classes?.span)}>a</span>Ph
             <span className={cn('text-red-400 animate-pulse', classes?.span)}>i</span>m
         </Link>
