@@ -1,7 +1,7 @@
 import Hls from 'hls.js';
 import { PlayIcon } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { useLoaderData, useSearchParams } from 'react-router-dom';
+import { Link, useLoaderData, useSearchParams } from 'react-router-dom';
 import { Breadcrumb, SectionEpisode } from '~components';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '~components-ui/accordion';
 import { Button } from '~components-ui/button';
@@ -25,8 +25,11 @@ function WatchPage() {
     );
 
     useEffect(() => {
-        document.title = 'PhaPhim | ' + fileCurrent?.filename;
-    }, [fileCurrent?.filename]);
+        document.title = 'PhaPhim | ' + data.seoOnPage.titleHead;
+        return () => {
+            document.title = 'PhaPhim';
+        };
+    }, [data.seoOnPage.titleHead]);
 
     useEffect(() => {
         const hls = new Hls({ debug: envConfig.DEV_MODE });
@@ -73,13 +76,18 @@ function WatchPage() {
             </div>
 
             <div className='p-2 mt-6 bg-card rounded-sm'>
-                <h3 className='text-xl font-bold text-primary'>{fileCurrent?.filename}</h3>
+                <Link to={`/${data.item.slug}`}>
+                    <h3 className='text-xl font-bold text-primary'>{fileCurrent?.filename}</h3>
+                </Link>
 
                 <Accordion type='single' collapsible>
                     <AccordionItem value='item-1' className='border-b-0'>
                         <AccordionTrigger className='underline-offset-8'>Nội dung phim</AccordionTrigger>
-                        <AccordionContent className='text-muted-foreground text-justify'>
-                            {info.content}
+                        <AccordionContent>
+                            <div
+                                dangerouslySetInnerHTML={{ __html: info.content }}
+                                className='text-muted-foreground text-justify'
+                            ></div>
                         </AccordionContent>
                     </AccordionItem>
                 </Accordion>

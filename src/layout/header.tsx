@@ -77,25 +77,51 @@ function Header() {
     }, [pathname]);
 
     return (
-        <header
-            className={cn('fixed top-0 left-0 w-full h-[50px] transition-[background-color] duration-500 z-10', {
-                'bg-background': pathname !== '/' || isHasBg,
-            })}
-        >
-            <Container className='h-full'>
-                <div className='relative flex items-center justify-between gap-1 sm:gap-2 h-full px-4 py-1'>
-                    <div className='flex items-center gap-2 sm:gap-4'>
-                        <SideDrawer items={navigate} />
+        <>
+            {/* Fix bg header not white when reload page */}
+            {pathname === '/' && (
+                <header
+                    className={cn(
+                        'fixed top-0 left-0 w-full h-[50px] transition-[background-color] duration-500 z-10',
+                        {
+                            'bg-background': isHasBg,
+                        }
+                    )}
+                >
+                    <Container className='h-full'>
+                        <div className='relative flex items-center justify-between gap-1 sm:gap-2 h-full px-4 py-1'>
+                            <div className='flex items-center gap-2 sm:gap-4'>
+                                <SideDrawer items={navigate} listObject={listObject} />
 
-                        <TextLogo />
+                                <TextLogo />
 
-                        <Navigation items={navigate} listObject={listObject} />
-                    </div>
+                                <Navigation items={navigate} listObject={listObject} />
+                            </div>
 
-                    <Searchbar />
-                </div>
-            </Container>
-        </header>
+                            <Searchbar />
+                        </div>
+                    </Container>
+                </header>
+            )}
+
+            {pathname !== '/' && (
+                <header className={cn('fixed top-0 left-0 w-full h-[50px] bg-background z-10')}>
+                    <Container className='h-full'>
+                        <div className='relative flex items-center justify-between gap-1 sm:gap-2 h-full px-4 py-1'>
+                            <div className='flex items-center gap-2 sm:gap-4'>
+                                <SideDrawer items={navigate} listObject={listObject} />
+
+                                <TextLogo />
+
+                                <Navigation items={navigate} listObject={listObject} />
+                            </div>
+
+                            <Searchbar />
+                        </div>
+                    </Container>
+                </header>
+            )}
+        </>
     );
 }
 

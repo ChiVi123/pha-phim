@@ -90,6 +90,15 @@ function ListPage() {
         return () => controller.abort();
     }, [categoryParam, countryParam, pageNumberParam, slug, sortFieldParam, typeParam, yearParam]);
 
+    useEffect(() => {
+        if (!listResponse) return;
+
+        document.title = 'Pha Phim | ' + listResponse.data.titlePage;
+        return () => {
+            document.title = 'Pha Phim';
+        };
+    }, [listResponse]);
+
     const handleSelectChange = (key: keyof ParamsObject, value: string) => {
         if (key === 'category' && categories.length === 0) {
             return;

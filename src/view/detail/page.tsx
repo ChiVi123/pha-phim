@@ -1,4 +1,4 @@
-import { PlayCircleIcon, StarIcon, TvMinimalPlayIcon } from 'lucide-react';
+import { PlayCircleIcon, PlayIcon, StarIcon, TvMinimalPlayIcon } from 'lucide-react';
 import { useEffect } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import { Breadcrumb, SectionEpisode } from '~components';
@@ -14,6 +14,9 @@ function DetailPage() {
 
     useEffect(() => {
         document.title = 'PhaPhim | ' + seoOnPage.titleHead;
+        return () => {
+            document.title = 'PhaPhim';
+        };
     }, [seoOnPage.titleHead]);
 
     return (
@@ -22,12 +25,22 @@ function DetailPage() {
 
             {/* Info */}
             <div className='flex flex-col md:flex-row gap-6 mt-8'>
-                <div className='md:w-1/4'>
+                <div className='relative md:w-1/4'>
                     <img
                         src={'https://img.ophim.live/uploads/movies/' + data.item.thumb_url}
                         alt={data.item.name}
-                        className='w-full object-cover'
+                        className='w-full h-full object-cover'
                     />
+
+                    <div className='absolute left-1/2 bottom-2 -translate-x-1/2'>
+                        <Link
+                            to={`/watch/${data.item.slug}`}
+                            className='inline-flex items-center justify-center size-14 bg-primary rounded-full shadow-primary shadow-md [&_svg]:size-6'
+                        >
+                            <PlayIcon strokeWidth={1.5} fill='currentColor' className='ml-[2px]' />
+                            <span className='sr-only'>Xem phim</span>
+                        </Link>
+                    </div>
                 </div>
                 <div className='md:w-3/4'>
                     <h1 className='text-4xl font-bold text-primary'>{data.item.name}</h1>

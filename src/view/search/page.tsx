@@ -23,6 +23,15 @@ function SearchPage() {
         };
     }, [keyword, pageNumberParam]);
 
+    useEffect(() => {
+        if (!listResponse) return;
+
+        document.title = 'Pha Phim | ' + listResponse.data.titlePage;
+        return () => {
+            document.title = 'Pha Phim';
+        };
+    }, [listResponse]);
+
     return (
         <div className='px-2 sm:px-4 py-6 mt-[50px]'>
             <Breadcrumb breadcrumb={listResponse?.data.breadCrumb ?? []} />

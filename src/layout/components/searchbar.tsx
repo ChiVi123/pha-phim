@@ -86,8 +86,14 @@ function Searchbar() {
         // when isShowSearchbar (false to true), event submit is triggered
         // input value is falsy should not fetch
         if (searchbarValue) {
+            setIsShowSearchbar(false);
+            setSearchbarValue('');
             navigate({ pathname: '/search', search: new URLSearchParams({ keyword: searchbarValue }).toString() });
         }
+    };
+    const handleClear = () => {
+        setSearchbarValue('');
+        inputSearchRef.current?.focus();
     };
     const handleInputSearchChange: ChangeEventHandler<HTMLInputElement> = (e) => {
         const { value } = e.target;
@@ -124,7 +130,7 @@ function Searchbar() {
                         <CircleXIcon
                             size={14}
                             className={cn('cursor-pointer', { hidden: !searchbarValue })}
-                            onClick={() => setSearchbarValue('')}
+                            onClick={handleClear}
                         />
 
                         <Button
@@ -157,7 +163,7 @@ function Searchbar() {
                 </TooltipTrigger>
 
                 <TooltipPortal>
-                    <TooltipContent align='end' className='max-w-[calc(100vw-32px)] p-0'>
+                    <TooltipContent align='end' className='max-w-[calc(100vw-32px)] sm:min-w-80 p-0'>
                         <ScrollArea className='h-[calc(100vh-160px)] p-3'>
                             {listResponse &&
                                 listResponse.data.items.map((item) => (

@@ -45,7 +45,7 @@ function HomePage() {
         <>
             <Carousel
                 plugins={[pluginRef.current]}
-                className='inset-0 w-full md:h-screen'
+                className='inset-0 w-full h-screen'
                 onMouseEnter={pluginRef.current.stop}
                 onMouseLeave={pluginRef.current.reset}
             >
@@ -79,7 +79,7 @@ function HomePage() {
                                 <h2 className='pr-2 pl-4 py-2 bg-primary text-xl font-medium text-primary-foreground'>
                                     {type.titlePage}
                                 </h2>
-                                <Link to={`/list/${type.type_list}`} className='hover:underline'>
+                                <Link to={`/danh-sach/${type.type_list}`} className='hover:underline'>
                                     Xem thêm
                                 </Link>
                             </div>
