@@ -1,9 +1,35 @@
+import { ArrowBigUp } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Container, ScrollToTop } from '~components';
+import { Button } from '~components-ui/button';
+import { cn } from '~utils';
 import Footer from './footer';
 import Header from './header';
 
 function DefaultLayout() {
+    const [showFloatButton, setShowFloatButton] = useState<boolean>(false);
+
+    useEffect(() => {
+        const handleVisible = () => {
+            if (window.scrollY > 80) {
+                setShowFloatButton(true);
+            } else {
+                setShowFloatButton(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleVisible);
+
+        return () => {
+            console.log('remove event');
+            window.removeEventListener('scroll', handleVisible);
+        };
+    }, []);
+
+    const handleScrollToTop = () => {
+        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    };
     return (
         <>
             <ScrollToTop />
@@ -15,6 +41,19 @@ function DefaultLayout() {
                 </Container>
             </main>
             <Footer />
+
+            <Button
+                type='button'
+                size='icon'
+                className={cn(
+                    'fixed right-2 bottom-2 size-12 rounded-full shadow-popover shadow-md scale-0 [&_svg]:size-6 transition-transform duration-500',
+                    { 'scale-100': showFloatButton }
+                )}
+                onClick={handleScrollToTop}
+            >
+                <span className='sr-only'>scroll to top</span>
+                <ArrowBigUp />
+            </Button>
         </>
     );
 }
