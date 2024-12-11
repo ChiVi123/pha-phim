@@ -32,7 +32,7 @@
 
 # 09/12/2024
 
-[] #09122024-01 `watch page`: get first item episode
+[x] #09122024-01 `watch page`: get first item episode
 
 [x] #09122024-02 `watch page`: back to detail page
 

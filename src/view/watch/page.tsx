@@ -15,12 +15,15 @@ function WatchPage() {
     const [isPlay, setIsPlay] = useState<boolean>(false);
     const videoRef = useRef<HTMLVideoElement | null>(null);
 
-    const episodeCurrent = searchParams.get('episode_current') ?? '1';
+    const episodeCurrent = searchParams.get('episode_current');
     const { item: info } = data;
     const { episodes } = info;
 
     const fileCurrent = useMemo(
-        () => episodes[0].server_data.find((item) => item.slug === episodeCurrent),
+        () =>
+            episodeCurrent
+                ? episodes[0].server_data.find((item) => item.slug === episodeCurrent)
+                : episodes[0].server_data[0],
         [episodeCurrent, episodes]
     );
 
