@@ -21,7 +21,7 @@ const Breadcrumb = forwardRef<HTMLElement, BreadcrumbPropsWithoutRef>(({ breadcr
             <BreadcrumbItem>
                 <BreadcrumbLink asChild>
                     <Link to='/' className='flex items-center gap-1'>
-                        <HomeIcon />
+                        <HomeIcon size={14} />
                         Trang chủ
                     </Link>
                 </BreadcrumbLink>
