@@ -20,7 +20,7 @@ function DetailPage() {
     }, [seoOnPage.titleHead]);
 
     return (
-        <div className='px-4 py-6 mt-[50px]'>
+        <div className='px-4 py-6 mt-header'>
             <Breadcrumb breadcrumb={data.breadCrumb} />
 
             {/* Info */}

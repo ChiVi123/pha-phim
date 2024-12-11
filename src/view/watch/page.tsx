@@ -51,7 +51,7 @@ function WatchPage() {
     }, [fileCurrent, isPlay]);
 
     return (
-        <div className='px-4 py-6 mt-[50px]'>
+        <div className='px-4 py-6 mt-header'>
             <Breadcrumb breadcrumb={data.breadCrumb} />
 
             <div className='relative flex justify-center mt-14 md:h-[calc(100vh-80px)] bg-card rounded-md'>

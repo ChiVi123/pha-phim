@@ -82,9 +82,9 @@ function Header() {
             {pathname === '/' && (
                 <header
                     className={cn(
-                        'fixed top-0 left-0 w-full h-[50px] transition-[background-color] duration-500 z-10',
+                        'fixed top-0 left-0 w-full h-header transition-[background-color] duration-500 z-10',
                         {
-                            'bg-background': isHasBg,
+                            'bg-background border-b border-border': isHasBg,
                         }
                     )}
                 >
@@ -105,7 +105,7 @@ function Header() {
             )}
 
             {pathname !== '/' && (
-                <header className={cn('fixed top-0 left-0 w-full h-[50px] bg-background z-10')}>
+                <header className={cn('fixed top-0 left-0 w-full h-header border-b border-border bg-background z-10')}>
                     <Container className='h-full'>
                         <div className='relative flex items-center justify-between gap-1 sm:gap-2 h-full px-4 py-1'>
                             <div className='flex items-center gap-2 sm:gap-4'>

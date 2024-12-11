@@ -5,6 +5,9 @@ export default {
   content: ["src/**/*.{ts,tsx}"],
   theme: {
     extend: {
+      spacing: {
+        header: "var(--header-height)"
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

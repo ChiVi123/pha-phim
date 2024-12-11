@@ -63,6 +63,11 @@
     * {
         @apply border-border;
     }
+
+    :root {
+        --header-height: 64px;
+    }
+
     body {
         @apply bg-background font-sans text-foreground antialiased;
         font-synthesis: none;
