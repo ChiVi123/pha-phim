@@ -16,7 +16,7 @@ function Footer() {
                     </p>
                 </div>
 
-                <div className='flex items-center justify-between pt-2 mt-4 border-t border-border'>
+                <div className='flex items-center justify-between pt-2 mt-4 mr-14 border-t border-border'>
                     <div className='text-sm text-muted-foreground'>
                         &copy; 2024 <span className='font-medium'>PhaPhim</span>.
                     </div>
