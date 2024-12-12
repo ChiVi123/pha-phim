@@ -45,3 +45,11 @@
 # 10/12/2024
 
 [x] #10122024-01 `search bar`: close tooltip after submit
+
+# 12/12/2024
+
+[x] #12122024-01: `favicon`: stroke width
+
+[x] #12122024-02: `section episode`: height overflow
+
+[x] #12122024-03: `list page`: browser bar responsive

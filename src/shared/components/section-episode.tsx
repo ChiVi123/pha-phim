@@ -1,6 +1,5 @@
 import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { Button } from '~components-ui/button';
-import { ScrollArea } from '~components-ui/scroll-area';
 import { Episode } from '~modules/film';
 
 interface IProps {
@@ -19,22 +18,20 @@ function SectionEpisode({ episode }: IProps) {
     return (
         <div>
             <div className='w-fit px-4 py-2 bg-card rounded-t-sm'>{episode.server_name}</div>
-            <ScrollArea className='h-[300px]'>
-                <div className='flex flex-wrap items-center gap-2 px-4 py-2 bg-card rounded-tr-sm rounded-b-sm'>
-                    {episode.server_data.map((data, index) => (
-                        <Button
-                            key={data.name + '-' + index}
-                            title={data.name}
-                            asChild
-                            variant={isActive(data.slug, index)}
-                        >
-                            <Link to={{ pathname: `/watch/${slug}`, search: `?episode_current=${data.slug}` }}>
-                                {data.slug}
-                            </Link>
-                        </Button>
-                    ))}
-                </div>
-            </ScrollArea>
+            <div className='flex flex-wrap items-center gap-2 max-h-[300px] px-4 py-2 bg-card rounded-tr-sm rounded-b-sm overflow-y-auto'>
+                {episode.server_data.map((data, index) => (
+                    <Button
+                        key={data.name + '-' + index}
+                        title={data.name}
+                        asChild
+                        variant={isActive(data.slug, index)}
+                    >
+                        <Link to={{ pathname: `/watch/${slug}`, search: `?episode_current=${data.slug}` }}>
+                            {data.slug}
+                        </Link>
+                    </Button>
+                ))}
+            </div>
         </div>
     );
 }

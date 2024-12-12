@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { createSearchParams, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { Breadcrumb, CardFilm, Pagination } from '~components';
 import { Button } from '~components-ui/button';
-import { Label } from '~components-ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~components-ui/select';
 import { categorySelector } from '~modules/category';
 import { countrySelector } from '~modules/country';
@@ -159,23 +158,21 @@ function ListPage() {
 
             <form
                 id='form-list'
-                className='flex flex-wrap items-end gap-4 p-2 mt-8 bg-card rounded'
+                className='flex flex-wrap items-end gap-1 sm:gap-4 p-2 mt-8 bg-card rounded'
                 onSubmit={handleSubmit}
             >
-                <div className='flex-grow flex flex-col gap-2'>
-                    <Label htmlFor=':list:filter-type-film' className='pl-1'>
-                        Loại phim:
-                    </Label>
+                <div className='flex-grow w-full sm:w-auto'>
                     <Select
                         name='type'
                         value={paramsObject.type}
+                        autoComplete='none'
                         onValueChange={(value) => handleSelectChange('type', value)}
                     >
-                        <SelectTrigger id=':list:filter-type-film'>
+                        <SelectTrigger title='loại phim'>
                             <SelectValue placeholder='Chọn loại phim...' />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value={VALUE_ALL}>- Tất cả -</SelectItem>
+                            <SelectItem value={VALUE_ALL}>- Loại phim -</SelectItem>
                             <SelectItem value='/danh-sach/phim-le'>Phim Lẻ</SelectItem>
                             <SelectItem value='/danh-sach/phim-bo'>Phim Bộ</SelectItem>
                             <SelectItem value='/danh-sach/tv-shows'>TV Shows</SelectItem>
@@ -184,20 +181,18 @@ function ListPage() {
                     </Select>
                 </div>
 
-                <div className='flex-grow flex flex-col gap-2'>
-                    <Label htmlFor=':list:filter-category-film' className='pl-1'>
-                        Thể loại:
-                    </Label>
+                <div className='flex-grow w-full sm:w-auto'>
                     <Select
                         name='category'
                         value={paramsObject.category}
+                        autoComplete='none'
                         onValueChange={(value) => handleSelectChange('category', value)}
                     >
-                        <SelectTrigger id=':list:filter-category-film'>
+                        <SelectTrigger title='thể loại'>
                             <SelectValue placeholder='Chọn thể loại...' />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value={VALUE_ALL}>- Tất cả -</SelectItem>
+                            <SelectItem value={VALUE_ALL}>- Thể loại -</SelectItem>
                             {categories.map((category) => (
                                 <SelectItem key={'the-loai_' + category.slug} value={category.slug}>
                                     {category.name}
@@ -207,20 +202,18 @@ function ListPage() {
                     </Select>
                 </div>
 
-                <div className='flex-grow flex flex-col gap-2'>
-                    <Label htmlFor=':list:filter-country-film' className='pl-1'>
-                        Quốc gia:
-                    </Label>
+                <div className='flex-grow w-full sm:w-auto'>
                     <Select
                         name='country'
                         value={paramsObject.country}
+                        autoComplete='none'
                         onValueChange={(value) => handleSelectChange('country', value)}
                     >
-                        <SelectTrigger id=':list:filter-country-film'>
+                        <SelectTrigger title='quốc gia'>
                             <SelectValue placeholder='Chọn quốc gia...' />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value={VALUE_ALL}>- Tất cả -</SelectItem>
+                            <SelectItem value={VALUE_ALL}>- Quốc gia -</SelectItem>
                             {countries.map((country) => (
                                 <SelectItem key={'quoc-gia_' + country.slug} value={country.slug}>
                                     {country.name}
@@ -230,20 +223,18 @@ function ListPage() {
                     </Select>
                 </div>
 
-                <div className='flex-grow flex flex-col gap-2'>
-                    <Label htmlFor=':list:filter-year-film' className='pl-1'>
-                        Năm:
-                    </Label>
+                <div className='flex-grow w-full sm:w-auto'>
                     <Select
                         name='year'
                         value={paramsObject.year}
+                        autoComplete='none'
                         onValueChange={(value) => handleSelectChange('year', value)}
                     >
-                        <SelectTrigger id=':list:filter-year-film'>
+                        <SelectTrigger title='năm sản xuất'>
                             <SelectValue placeholder='Chọn theo năm...' />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value={VALUE_ALL}>- Tất cả -</SelectItem>
+                            <SelectItem value={VALUE_ALL}>- Năm sản xuất -</SelectItem>
                             {Array.from(
                                 { length: new Date().getFullYear() - 1914 + 1 },
                                 (_, i) => new Date().getFullYear() - i
@@ -256,16 +247,14 @@ function ListPage() {
                     </Select>
                 </div>
 
-                <div className='flex-grow flex flex-col gap-2'>
-                    <Label htmlFor=':list:sort-film' className='pl-1'>
-                        Sắp xếp:
-                    </Label>
+                <div className='flex-grow w-full sm:w-auto'>
                     <Select
                         name='sort_field'
                         value={paramsObject.sort_field}
+                        autoComplete='none'
                         onValueChange={(value) => handleSelectChange('sort_field', value)}
                     >
-                        <SelectTrigger id=':list:sort-film'>
+                        <SelectTrigger title='sắp xếp'>
                             <SelectValue placeholder='Chọn sắp xếp...' />
                         </SelectTrigger>
                         <SelectContent>
