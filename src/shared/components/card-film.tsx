@@ -1,3 +1,4 @@
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '~components-ui/card';
 import { IFilmItem } from '~modules/film';
@@ -12,11 +13,12 @@ function CardFilm({ item, domainCDNImage }: IProps) {
             <Card className='relative h-full overflow-hidden select-none group'>
                 <CardContent className='h-full p-0'>
                     <div className='h-80 text-center overflow-hidden'>
-                        <img
+                        <LazyLoadImage
                             src={domainCDNImage + '/uploads/movies/' + item.thumb_url}
                             alt={item.name}
-                            loading='lazy'
-                            className='inline-block h-full object-cover group-hover:scale-125 transition-transform'
+                            width={320}
+                            height={298}
+                            className='inline-block w-full h-full object-cover group-hover:scale-125 transition-transform duration-800'
                         />
                     </div>
                     <div className='p-2'>
