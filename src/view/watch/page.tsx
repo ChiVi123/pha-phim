@@ -1,7 +1,7 @@
 import Hls from 'hls.js';
 import { PlayIcon } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Link, useLoaderData, useSearchParams } from 'react-router-dom';
+import { useLoaderData, useSearchParams } from 'react-router-dom';
 import { Breadcrumb, SectionEpisode } from '~components';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '~components-ui/accordion';
 import { Button } from '~components-ui/button';
@@ -13,6 +13,7 @@ function WatchPage() {
     const [searchParams] = useSearchParams();
     const { data } = useLoaderData() as HTTPResponse<IFilmEntity>;
     const [isPlay, setIsPlay] = useState<boolean>(false);
+    const elementRef = useRef<HTMLDivElement | null>(null);
     const videoRef = useRef<HTMLVideoElement | null>(null);
 
     const episodeCurrent = searchParams.get('episode_current');
@@ -26,6 +27,11 @@ function WatchPage() {
                 : episodes[0].server_data[0],
         [episodeCurrent, episodes]
     );
+
+    useEffect(() => {
+        if (!elementRef.current) return;
+        window.scrollTo({ top: elementRef.current.offsetTop - 68, behavior: 'smooth' });
+    }, []);
 
     useEffect(() => {
         document.title = 'PhaPhim | ' + data.seoOnPage.titleHead;
@@ -54,7 +60,10 @@ function WatchPage() {
         <div className='px-4 py-6 mt-header'>
             <Breadcrumb breadcrumb={data.breadCrumb} />
 
-            <div className='relative flex justify-center mt-14 md:h-[calc(100vh-80px)] bg-card rounded-md'>
+            <div
+                ref={elementRef}
+                className='relative flex justify-center mt-14 md:h-[calc(100vh-80px)] bg-card rounded-md'
+            >
                 {!isPlay && (
                     <img
                         src={'https://img.ophim.live/uploads/movies/' + info.poster_url}
@@ -75,15 +84,37 @@ function WatchPage() {
                         </Button>
                     </div>
                 )}
-                {isPlay && <video ref={videoRef} controls autoPlay className='w-full md:w-auto md:h-full'></video>}
+
+                {isPlay && info.episode_current !== 'Trailer' && (
+                    <video ref={videoRef} controls autoPlay className='w-full md:w-auto md:h-full'></video>
+                )}
+                {isPlay && info.episode_current === 'Trailer' && info.trailer_url && (
+                    <iframe
+                        src={data.item.trailer_url.replace('watch?v=', 'embed/')}
+                        title='YouTube video player'
+                        allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+                        referrerPolicy='strict-origin-when-cross-origin'
+                        allowFullScreen
+                        className='w-full aspect-video'
+                    />
+                )}
             </div>
 
-            <div className='p-2 mt-6 bg-card rounded-sm'>
-                <Link to={`/${data.item.slug}`}>
-                    <h3 className='text-xl font-bold text-primary'>{fileCurrent?.filename}</h3>
-                </Link>
+            {/* Episodes */}
+            {info.episode_current !== 'Trailer' && (
+                <div className='mt-8 space-y-2'>
+                    {episodes.map((episode) => (
+                        <SectionEpisode key={episode.server_name} episode={episode} />
+                    ))}
+                </div>
+            )}
 
-                <Accordion type='single' collapsible>
+            <div className='p-2 mt-6 bg-card rounded-sm'>
+                <h3 className='text-xl font-bold text-primary'>
+                    {info.name} - Tập {fileCurrent?.name}
+                </h3>
+
+                <Accordion type='single' collapsible defaultValue='item-1'>
                     <AccordionItem value='item-1' className='border-b-0'>
                         <AccordionTrigger className='underline-offset-8'>Nội dung phim</AccordionTrigger>
                         <AccordionContent>
@@ -94,13 +125,6 @@ function WatchPage() {
                         </AccordionContent>
                     </AccordionItem>
                 </Accordion>
-            </div>
-
-            {/* Episodes */}
-            <div className='mt-8 space-y-2'>
-                {episodes.map((episode) => (
-                    <SectionEpisode key={episode.server_name} episode={episode} />
-                ))}
             </div>
         </div>
     );
