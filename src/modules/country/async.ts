@@ -5,9 +5,9 @@ import { ICountryEntity, ListCountryResponse } from './entity';
 
 export const fetchAllCountry = createAsyncThunk<ICountryEntity[], void, { rejectValue: string }>(
     'category::fetchAllCountry',
-    async (_, { rejectWithValue }) => {
+    async (_, { signal, rejectWithValue }) => {
         try {
-            const res = await http.get<ListCountryResponse>('quoc-gia');
+            const res = await http.get<ListCountryResponse>('quoc-gia', { signal });
             return res.data.data.items;
         } catch (error) {
             console.log('fetchAllCountry::', error);

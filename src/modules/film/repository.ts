@@ -6,7 +6,7 @@ export const getFilmBySlug = async (slug: string) => {
     return res.data;
 };
 export const searchFilmByType = async (
-    signal: AbortSignal,
+    signal: AbortSignal | undefined,
     params: Record<string, unknown>,
     type: FilmType = 'hot'
 ) => {
