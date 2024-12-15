@@ -1,8 +1,10 @@
 import { CalendarIcon, ClockIcon, InfoIcon, PlayIcon, VideoIcon } from 'lucide-react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '~components-ui/button';
 import { Card, CardContent } from '~components-ui/card';
 import { IFilmItem } from '~modules/film';
+import { cn } from '~utils';
 import CircleProcess from './circle-process';
 
 interface ICardPosterProps {
@@ -10,21 +12,24 @@ interface ICardPosterProps {
 }
 
 function CardPoster({ item }: ICardPosterProps) {
+    const [loaded, setLoaded] = useState<boolean>(false);
+
     return (
         <Card className='rounded-none shadow-lg overflow-hidden'>
             <CardContent className='relative flex items-center justify-center p-0'>
-                <div className='h-screen text-center'>
+                <div className='h-screen sm:h-full max-h-screen text-center'>
                     <img
                         src={`https://img.ophim.live/uploads/movies/${item.poster_url}`}
                         alt={item.name}
-                        className='w-auto md:w-full h-full md:h-auto object-cover'
+                        className={cn('size-full object-cover', { 'h-screen': !loaded })}
+                        onLoad={() => setLoaded(true)}
                     />
                 </div>
 
                 <div className='absolute inset-0 bg-gradient-to-r from-muted/90 to-muted/40'></div>
 
                 <div className='absolute top-1/2 left-0 flex flex-col px-12 md:px-20 -translate-y-1/2'>
-                    <h2 className='text-xl md:text-6xl font-bold text-primary tracking-tighter shadow-gray-800 text-shadow'>
+                    <h2 className='text-xl md:text-4xl lg:text-6xl font-bold text-primary tracking-tighter shadow-gray-800 text-shadow'>
                         {item.origin_name}
                     </h2>
                     <h2 className='mt-2 md:text-3xl font-bold shadow-gray-800 text-shadow'>
