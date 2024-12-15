@@ -1,4 +1,4 @@
-import { ArrowBigUp } from 'lucide-react';
+import { ArrowBigUpIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Container, ScrollToTop } from '~components';
@@ -52,7 +52,7 @@ function DefaultLayout() {
                 onClick={handleScrollToTop}
             >
                 <span className='sr-only'>scroll to top</span>
-                <ArrowBigUp />
+                <ArrowBigUpIcon strokeWidth={0} fill='currentColor' />
             </Button>
         </>
     );
