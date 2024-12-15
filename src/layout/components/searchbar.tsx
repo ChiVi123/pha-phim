@@ -4,7 +4,6 @@ import { ChangeEventHandler, FormEventHandler, useEffect, useRef, useState } fro
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '~components-ui/button';
 import { Input } from '~components-ui/input';
-import { ScrollArea } from '~components-ui/scroll-area';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~components-ui/tooltip';
 import { useDebounce } from '~hook';
 import { ListFilmResponse, searchFilm } from '~modules/film';
@@ -164,7 +163,7 @@ function Searchbar() {
 
                 <TooltipPortal>
                     <TooltipContent align='end' className='max-w-[calc(100vw-32px)] sm:min-w-80 p-0'>
-                        <ScrollArea className='h-[calc(100vh-160px)] p-3'>
+                        <div className='max-h-[calc(100vh-160px)] p-3 overflow-y-auto'>
                             {listResponse &&
                                 listResponse.data.items.map((item) => (
                                     <Link
@@ -192,7 +191,7 @@ function Searchbar() {
                                         </div>
                                     </Link>
                                 ))}
-                        </ScrollArea>
+                        </div>
                     </TooltipContent>
                 </TooltipPortal>
             </Tooltip>
