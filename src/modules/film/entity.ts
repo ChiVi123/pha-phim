@@ -106,4 +106,5 @@ export type ListFilmResponse = HTTPResponse<{
         sortType: string;
         type_slug: string;
     };
+    seoOnPage: ISEOEntity;
 }>;

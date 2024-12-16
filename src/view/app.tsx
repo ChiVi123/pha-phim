@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { HelmetProvider } from 'react-helmet-async';
 import { Provider } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';
 import store from '~core/store';
@@ -10,9 +11,11 @@ function App() {
     }, []);
 
     return (
-        <Provider store={store}>
-            <RouterProvider router={browserRouter} />
-        </Provider>
+        <HelmetProvider>
+            <Provider store={store}>
+                <RouterProvider router={browserRouter} />
+            </Provider>
+        </HelmetProvider>
     );
 }
 

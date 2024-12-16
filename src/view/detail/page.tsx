@@ -1,7 +1,7 @@
 import { PlayCircleIcon, PlayIcon, StarIcon, TvMinimalPlayIcon } from 'lucide-react';
-import { Fragment, useEffect } from 'react';
+import { Fragment } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
-import { Breadcrumb, SectionEpisode } from '~components';
+import { Breadcrumb, MetaData, SectionEpisode } from '~components';
 import { Button } from '~components-ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '~components-ui/dialog';
 import { HTTPResponse } from '~core/http';
@@ -12,15 +12,15 @@ function DetailPage() {
     const { seoOnPage } = data;
     const { episodes } = data.item;
 
-    useEffect(() => {
-        document.title = 'PhaPhim | ' + seoOnPage.titleHead;
-        return () => {
-            document.title = 'PhaPhim';
-        };
-    }, [seoOnPage.titleHead]);
-
     return (
         <div className='p-4 mt-header'>
+            <MetaData
+                metaTitle={seoOnPage.titleHead}
+                metaDescription={seoOnPage.descriptionHead}
+                metaType={seoOnPage.og_type}
+                metaImage={seoOnPage.og_image[0]}
+            />
+
             <Breadcrumb breadcrumb={data.breadCrumb} />
 
             {/* Info */}

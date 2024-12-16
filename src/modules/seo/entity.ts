@@ -13,7 +13,7 @@ export interface ISEOEntity {
         director: string;
     };
     descriptionHead: string;
-    og_image: string;
+    og_image: string[];
     updated_time: number;
     og_url: string;
 }

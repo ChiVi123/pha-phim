@@ -3,7 +3,7 @@ import { RouteObject } from 'react-router-dom';
 import { HydrateFallback } from '~components';
 import { ListFilmResponse, searchFilmByType } from '~modules/film';
 
-type FilmTypeObject = Record<FilmType, Omit<ListFilmResponse['data'], 'breadCrumb' | 'params'>>;
+type FilmTypeObject = Record<FilmType, Omit<ListFilmResponse['data'], 'breadCrumb' | 'params' | 'seoOnPage'>>;
 
 const filmTypes: FilmType[] = ['hot', 'phim-le', 'hoat-hinh', 'phim-bo'];
 const homeRoute: RouteObject = {

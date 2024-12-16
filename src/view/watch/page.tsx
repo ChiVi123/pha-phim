@@ -2,7 +2,7 @@ import Hls from 'hls.js';
 import { PlayIcon } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLoaderData, useSearchParams } from 'react-router-dom';
-import { Breadcrumb, SectionEpisode } from '~components';
+import { Breadcrumb, MetaData, SectionEpisode } from '~components';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '~components-ui/accordion';
 import { Button } from '~components-ui/button';
 import envConfig from '~config/env';
@@ -34,13 +34,6 @@ function WatchPage() {
     }, []);
 
     useEffect(() => {
-        document.title = 'PhaPhim | ' + data.seoOnPage.titleHead;
-        return () => {
-            document.title = 'PhaPhim';
-        };
-    }, [data.seoOnPage.titleHead]);
-
-    useEffect(() => {
         const hls = new Hls({ debug: envConfig.DEV_MODE });
 
         if (isPlay && Hls.isSupported() && videoRef.current && fileCurrent) {
@@ -58,6 +51,13 @@ function WatchPage() {
 
     return (
         <div className='px-4 py-6 mt-header'>
+            <MetaData
+                metaTitle={data.seoOnPage.titleHead}
+                metaDescription={data.seoOnPage.descriptionHead}
+                metaType={data.seoOnPage.og_type}
+                metaImage={data.seoOnPage.og_image[0]}
+            />
+
             <Breadcrumb breadcrumb={data.breadCrumb} />
 
             <div

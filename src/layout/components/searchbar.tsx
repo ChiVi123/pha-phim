@@ -9,10 +9,12 @@ import { useDebounce } from '~hook';
 import { ListFilmResponse, searchFilm } from '~modules/film';
 import { cn } from '~utils';
 
+type ListFilmData = Pick<ListFilmResponse['data'], 'APP_DOMAIN_CDN_IMAGE' | 'items'>;
+
 function Searchbar() {
     const [isShowSearchbar, setIsShowSearchbar] = useState<boolean>(false);
     const [searchbarValue, setSearchbarValue] = useState<string>('');
-    const [listResponse, setListResponse] = useState<ListFilmResponse>();
+    const [listResult, setListResult] = useState<ListFilmData>();
 
     const searchbarRef = useRef<HTMLFormElement | null>(null);
     const inputSearchRef = useRef<HTMLInputElement | null>(null);
@@ -45,39 +47,12 @@ function Searchbar() {
 
     useEffect(() => {
         const controller = new AbortController();
-        (async function () {
-            if (!debounceValue.trim()) {
-                setListResponse({
-                    data: {
-                        APP_DOMAIN_CDN_IMAGE: '',
-                        breadCrumb: [],
-                        items: [],
-                        params: {
-                            filterCategory: [],
-                            filterCountry: [],
-                            filterType: '',
-                            filterYear: '',
-                            pagination: { currentPage: 0, pageRanges: 0, totalItems: 0, totalItemsPerPage: 0 },
-                            slug: '',
-                            sortField: '',
-                            sortType: '',
-                            type_slug: '',
-                        },
-                        titlePage: '',
-                        type_list: 'hot',
-                    },
-                    message: '',
-                    status: '',
-                });
-                return;
-            }
-
-            const result = await searchFilm(controller.signal, { keyword: debounceValue });
-            setListResponse(result);
-        })();
-        return () => {
-            controller.abort();
-        };
+        if (!debounceValue.trim()) {
+            setListResult({ APP_DOMAIN_CDN_IMAGE: '', items: [] });
+            return;
+        }
+        searchFilm(controller.signal, { keyword: debounceValue }).then((result) => setListResult(result.data));
+        return () => controller.abort();
     }, [debounceValue]);
 
     const handleSubmit: FormEventHandler = (e) => {
@@ -102,10 +77,7 @@ function Searchbar() {
 
     return (
         <TooltipProvider>
-            <Tooltip
-                disableHoverableContent
-                open={listResponse && isShowSearchbar && listResponse.data.items.length > 0}
-            >
+            <Tooltip disableHoverableContent open={listResult && isShowSearchbar && listResult.items.length > 0}>
                 <TooltipTrigger asChild>
                     <form
                         ref={searchbarRef}
@@ -164,19 +136,15 @@ function Searchbar() {
                 <TooltipPortal>
                     <TooltipContent align='end' className='max-w-[calc(100vw-32px)] sm:min-w-80 p-0'>
                         <div className='max-h-[calc(100vh-160px)] p-3 overflow-y-auto'>
-                            {listResponse &&
-                                listResponse.data.items.map((item) => (
+                            {listResult &&
+                                listResult.items.map((item) => (
                                     <Link
                                         key={item._id}
                                         to={`/${item.slug}`}
                                         className='flex gap-2 py-1 first-of-type:mt-0 mt-2 hover:bg-primary/5'
                                     >
                                         <img
-                                            src={
-                                                listResponse.data.APP_DOMAIN_CDN_IMAGE +
-                                                '/uploads/movies/' +
-                                                item.thumb_url
-                                            }
+                                            src={listResult.APP_DOMAIN_CDN_IMAGE + '/uploads/movies/' + item.thumb_url}
                                             alt={item.name}
                                             width={60}
                                             height={80}

@@ -2,7 +2,7 @@ import Autoplay from 'embla-carousel-autoplay';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import { useRef } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
-import { CardFilm } from '~components';
+import { CardFilm, MetaData } from '~components';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '~components-ui/carousel';
 import { IFilmItem, ListFilmResponse } from '~modules/film';
 import { CardPoster, ChevronAnimation } from './components';
@@ -18,6 +18,8 @@ function HomePage() {
 
     return (
         <>
+            <MetaData />
+
             <Carousel
                 plugins={[pluginRef.current]}
                 className='inset-0 w-full'

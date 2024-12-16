@@ -1,7 +1,7 @@
 import { FormEventHandler, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { createSearchParams, useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import { Breadcrumb, CardFilm, Pagination } from '~components';
+import { Breadcrumb, CardFilm, MetaData, Pagination } from '~components';
 import { Button } from '~components-ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~components-ui/select';
 import { categorySelector } from '~modules/category';
@@ -15,6 +15,7 @@ type ParamsObject = {
     year: string;
     sort_field: string;
 };
+type ListFilmData = ListFilmResponse['data'];
 
 const VALUE_ALL = 'all';
 const VALUE_SORT_MODIFIED = 'modified.time';
@@ -29,7 +30,7 @@ const initialParamsObject: ParamsObject = {
 function ListPage() {
     const [searchParams] = useSearchParams();
     const { type: typeParam, slug } = useParams();
-    const [listResponse, setListResponse] = useState<ListFilmResponse>();
+    const [listResult, setListResult] = useState<ListFilmData>();
     const [paramsObject, setParamsObject] = useState<ParamsObject>(initialParamsObject);
     const categories = useSelector(categorySelector.data);
     const countries = useSelector(countrySelector.data);
@@ -76,27 +77,15 @@ function ListPage() {
 
     useEffect(() => {
         const controller = new AbortController();
-        (async function () {
-            const result = await getListFilm(controller.signal, `${typeParam}/${slug}`, {
-                category: categoryParam === VALUE_ALL ? undefined : categoryParam,
-                country: countryParam === VALUE_ALL ? undefined : countryParam,
-                year: yearParam === VALUE_ALL ? undefined : yearParam,
-                sort_field: sortFieldParam,
-                page: pageNumberParam,
-            });
-            setListResponse(result);
-        })();
+        getListFilm(controller.signal, `${typeParam}/${slug}`, {
+            category: categoryParam === VALUE_ALL ? undefined : categoryParam,
+            country: countryParam === VALUE_ALL ? undefined : countryParam,
+            year: yearParam === VALUE_ALL ? undefined : yearParam,
+            sort_field: sortFieldParam,
+            page: pageNumberParam,
+        }).then((result) => setListResult(result.data));
         return () => controller.abort();
     }, [categoryParam, countryParam, pageNumberParam, slug, sortFieldParam, typeParam, yearParam]);
-
-    useEffect(() => {
-        if (!listResponse) return;
-
-        document.title = 'Pha Phim | ' + listResponse.data.titlePage;
-        return () => {
-            document.title = 'Pha Phim';
-        };
-    }, [listResponse]);
 
     const handleSelectChange = (key: keyof ParamsObject, value: string) => {
         if (key === 'category' && categories.length === 0) {
@@ -154,7 +143,13 @@ function ListPage() {
 
     return (
         <div className='px-2 sm:px-4 py-6 mt-header'>
-            <Breadcrumb breadcrumb={listResponse?.data.breadCrumb ?? []} />
+            <MetaData
+                metaTitle={listResult?.seoOnPage.titleHead}
+                metaDescription={listResult?.seoOnPage.descriptionHead}
+                metaType={listResult?.seoOnPage.og_type}
+            />
+
+            <Breadcrumb breadcrumb={listResult?.breadCrumb ?? []} />
 
             <form
                 id='form-list'
@@ -270,20 +265,18 @@ function ListPage() {
             </form>
 
             <h2 className='pb-[2px] mt-8 border-b-2 text-2xl font-medium text-primary underline underline-offset-8'>
-                {listResponse?.data.titlePage}
+                {listResult?.titlePage}
             </h2>
 
             <div className='mt-6 grid grid-cols-2 md:grid-cols-4 gap-2'>
-                {listResponse &&
-                    listResponse.data.items.map((item) => (
-                        <CardFilm key={item._id} item={item} domainCDNImage={listResponse.data.APP_DOMAIN_CDN_IMAGE} />
+                {listResult &&
+                    listResult.items.map((item) => (
+                        <CardFilm key={item._id} item={item} domainCDNImage={listResult.APP_DOMAIN_CDN_IMAGE} />
                     ))}
             </div>
 
             <div className='mt-8'>
-                {listResponse && (
-                    <Pagination searchParams={searchParams} pagination={listResponse.data.params.pagination} />
-                )}
+                {listResult && <Pagination searchParams={searchParams} pagination={listResult.params.pagination} />}
             </div>
         </div>
     );
