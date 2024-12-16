@@ -1,6 +1,6 @@
-import { NavigationMenuLink } from '@radix-ui/react-navigation-menu';
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react';
 import { Link } from 'react-router-dom';
+import { NavigationMenuLink } from '~components-ui/navigation-menu';
 import { cn } from '~utils';
 
 type NavItemLinkRef = ElementRef<typeof Link>;

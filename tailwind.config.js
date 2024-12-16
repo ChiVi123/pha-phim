@@ -72,7 +72,7 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), plugin(function ({ matchUtilities, theme }) {
+  plugins: [plugin(function ({ matchUtilities, theme }) {
     matchUtilities({
       'text-shadow': (value) => ({ textShadow: value })
     }, { values: theme('textShadow') })
