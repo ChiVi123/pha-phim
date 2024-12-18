@@ -1,4 +1,5 @@
-import { Container, TextLogo } from '~components';
+import Container from '~components/container';
+import TextLogo from '~components/text-logo';
 
 function Footer() {
     return (

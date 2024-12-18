@@ -2,7 +2,6 @@ import { Slottable } from '@radix-ui/react-slot';
 import { ChevronDown, Menu as MenuIcon, XIcon } from 'lucide-react';
 import { ReactNode, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { TextLogo } from '~components';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~components-ui/collapsible';
 import {
     Drawer,
@@ -20,6 +19,7 @@ import {
     navigationMenuTriggerStyle,
 } from '~components-ui/navigation-menu';
 import { ScrollArea } from '~components-ui/scroll-area';
+import TextLogo from '~components/text-logo';
 import { ICategoryEntity } from '~modules/category';
 import { ICountryEntity } from '~modules/country';
 import { cn } from '~utils';

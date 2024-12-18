@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 import { RouteObject } from 'react-router-dom';
-import { HydrateFallback } from '~components';
+import HydrateFallback from '~components/hydrate-fallback';
 import { getFilmBySlug } from '~modules/film';
 
 const detailRoute: RouteObject = {

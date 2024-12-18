@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 import { RouteObject } from 'react-router-dom';
-import { HydrateFallback } from '~components';
+import HydrateFallback from '~components/hydrate-fallback';
 import { ListFilmResponse, searchFilmByType } from '~modules/film';
 
 type FilmTypeObject = Record<FilmType, Omit<ListFilmResponse['data'], 'breadCrumb' | 'params' | 'seoOnPage'>>;

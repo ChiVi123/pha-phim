@@ -2,8 +2,9 @@ import Autoplay from 'embla-carousel-autoplay';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import { useRef } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
-import { CardFilm, MetaData } from '~components';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '~components-ui/carousel';
+import CardFilm from '~components/card-film';
+import MetaData from '~components/meta-data';
 import { IFilmItem, ListFilmResponse } from '~modules/film';
 import { CardPoster, ChevronAnimation } from './components';
 

@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Breadcrumb, CardFilm, MetaData, Pagination } from '~components';
+import Breadcrumb from '~components/breadcrumb';
+import CardFilm from '~components/card-film';
+import MetaData from '~components/meta-data';
+import Pagination from '~components/pagination';
 import { ListFilmResponse, searchFilm } from '~modules/film';
 
 type ListFilmData = ListFilmResponse['data'];

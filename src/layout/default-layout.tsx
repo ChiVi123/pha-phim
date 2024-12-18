@@ -1,8 +1,9 @@
 import { ArrowBigUpIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import { Container, ScrollToTop } from '~components';
 import { Button } from '~components-ui/button';
+import Container from '~components/container';
+import ScrollToTop from '~components/scroll-to-top';
 import { cn } from '~utils';
 import Footer from './footer';
 import Header from './header';

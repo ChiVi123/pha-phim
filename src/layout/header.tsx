@@ -2,7 +2,8 @@ import { GlobeIcon, HouseIcon, LayoutListIcon, PopcornIcon, TvIcon, TvMinimalPla
 import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { Container, TextLogo } from '~components';
+import Container from '~components/container';
+import TextLogo from '~components/text-logo';
 import { useAppDispatch } from '~core/store';
 import { categorySelector, fetchAllCategory, ICategoryEntity } from '~modules/category';
 import { countrySelector, fetchAllCountry, ICountryEntity } from '~modules/country';

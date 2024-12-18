@@ -1,9 +1,12 @@
 import { FormEventHandler, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { createSearchParams, useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import { Breadcrumb, CardFilm, MetaData, Pagination } from '~components';
 import { Button } from '~components-ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~components-ui/select';
+import Breadcrumb from '~components/breadcrumb';
+import CardFilm from '~components/card-film';
+import MetaData from '~components/meta-data';
+import Pagination from '~components/pagination';
 import { categorySelector } from '~modules/category';
 import { countrySelector } from '~modules/country';
 import { getListFilm, ListFilmResponse } from '~modules/film';

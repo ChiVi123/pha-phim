@@ -1,9 +1,11 @@
 import { PlayCircleIcon, PlayIcon, StarIcon, TvMinimalPlayIcon } from 'lucide-react';
 import { Fragment } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
-import { Breadcrumb, MetaData, SectionEpisode } from '~components';
 import { Button } from '~components-ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '~components-ui/dialog';
+import Breadcrumb from '~components/breadcrumb';
+import MetaData from '~components/meta-data';
+import SectionEpisode from '~components/section-episode';
 import { HTTPResponse } from '~core/http';
 import { IFilmEntity } from '~modules/film';
 
